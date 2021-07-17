@@ -22,24 +22,25 @@ for (var i = 0; i geoData.length; i++) {
 
     // Conditionals for countries points
     var color = "";
-    if (geoData[i].features.properties.mag >= -10 && geoData[i].features.properties.mag <= 10 ) {
+    if (geoData[i].features.geometry.coordinates.depth >= -10 && geoData[i].features.geometry.coordinates.depth <= 10 ) {
       color = "#00ff99";
     }
-    else if (geoData[i].features.properties.mag > 10 && geoData[i].features.properties.mag <= 30 ) {
+    else if (geoData[i].features.geometry.coordinates.depth > 10 && geoData[i].geometry.coordinates.depth <= 30 ) {
       color = "#ffff66";
     }
-    else if (geoData[i].features.properties.mag > 30 && geoData[i].features.properties.mag <=  50 ) {
+    else if (geoData[i].features.geometry.coordinates.depth > 30 && geoData[i].features.geometry.coordinates.depth <=  50 ) {
       color = "#ffcc00";
     }
-    else if (geoData[i].features.properties.mag > 50 && geoData[i].features.properties.mag <=  70) {
+    else if (geoData[i].features.geometry.coordinates.depth > 50 && geoData[i].features.geometry.coordinates.depth <=  70) {
         color = "#ff9933";
     }
-    else if (geoData[i].features.properties.mag > 70 && geoData[i].features.properties.mag <=  90) {
+    else if (geoData[i].features.geometry.coordinates.depth > 70 && geoData[i].geometry.coordinates.depth <=  90) {
         color = "#ff6600";
     }
     else {
       color = "#ff0000";
     }
 
+  
 
 }
