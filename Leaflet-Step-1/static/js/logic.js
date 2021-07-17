@@ -4,6 +4,10 @@ var myMap = L.map("mapid", {
     zoom: 5
 
   });
+
+var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson";
+
+d3.json(url).then(function(geoData) {
   
   // Adding tile layer to the map
   L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -15,10 +19,22 @@ var myMap = L.map("mapid", {
     accessToken: API_KEY
   }).addTo(myMap);
 
-  var geoData = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson";
+ 
+
+
+  // To begin with, we'll make an array containing the locations
+  var quakeLocation = [];
+
+  for (var i = 0; i < geoData.length; i++) {
+
+    // Set the data location property to a variable
+    quakeLocation = [geoData[i].coordinates.longitude, geoData[i].coordinates.latitude];
+  }
+
+
 
   // Loop through the cities array and create one marker for each city object
-for (var i = 0; i geoData.length; i++) {
+for (var i = 0; i < geoData.length; i++) {
 
     // Conditionals for countries points
     var color = "";
@@ -42,5 +58,14 @@ for (var i = 0; i geoData.length; i++) {
     }
 
   
-
+  // Add circles to map
+  L.circleMarker(quakeLocation[i], {
+    fillOpacity: 0.75,
+    color: "white",
+    fillColor: color,
+    // We adjust the radius to the magnitude of the earthquake
+    radius: geoData[i].properties.mag / 10
+  }).bindPopup("<h1>" + geoData[i].features.properties.place + "</h1> <hr> <h3> Place: " + geoData[i].features.properties.mag + "</h3>").addTo(myMap);
 }
+
+})
