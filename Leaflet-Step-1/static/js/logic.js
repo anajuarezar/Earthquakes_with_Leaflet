@@ -14,3 +14,32 @@ var myMap = L.map("mapid", {
     id: "mapbox/streets-v11",
     accessToken: API_KEY
   }).addTo(myMap);
+
+  var geoData = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson";
+
+  // Loop through the cities array and create one marker for each city object
+for (var i = 0; i geoData.length; i++) {
+
+    // Conditionals for countries points
+    var color = "";
+    if (geoData[i].features.properties.mag >= -10 && geoData[i].features.properties.mag <= 10 ) {
+      color = "#00ff99";
+    }
+    else if (geoData[i].features.properties.mag > 10 && geoData[i].features.properties.mag <= 30 ) {
+      color = "#ffff66";
+    }
+    else if (geoData[i].features.properties.mag > 30 && geoData[i].features.properties.mag <=  50 ) {
+      color = "#ffcc00";
+    }
+    else if (geoData[i].features.properties.mag > 50 && geoData[i].features.properties.mag <=  70) {
+        color = "#ff9933";
+    }
+    else if (geoData[i].features.properties.mag > 70 && geoData[i].features.properties.mag <=  90) {
+        color = "#ff6600";
+    }
+    else {
+      color = "#ff0000";
+    }
+
+
+}
