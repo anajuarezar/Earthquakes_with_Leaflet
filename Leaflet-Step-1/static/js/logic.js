@@ -19,17 +19,7 @@ d3.json(url).then(function(geoData) {
     accessToken: API_KEY
   }).addTo(myMap);
 
- 
-
-
-  // To begin with, we'll make an array containing the locations
-  var quakeLocation = [];
-
-  for (var i = 0; i < geoData.length; i++) {
-
-    // Set the data location property to a variable
-    quakeLocation = [geoData[i].coordinates.longitude, geoData[i].coordinates.latitude];
-  }
+  // console.log(geoData);
 
 
 
@@ -57,15 +47,30 @@ for (var i = 0; i < geoData.length; i++) {
       color = "#ff0000";
     }
 
+
+    
+  // To begin with, we'll make an array containing the locations
+  var quakeLocation = [];
+
+  for (var i = 0; i < geoData.length; i++) {
+
+    // Set the data location property to a variable
+    quakeLocation = [geoData[i].coordinates.longitude, geoData[i].coordinates.latitude];
+
+    if (quakeLocation) {
+
+        L.circleMarker(quakeLocation[i], {
+            fillOpacity: 0.75,
+            color: "white",
+            fillColor: color,
+            // We adjust the radius to the magnitude of the earthquake
+            radius: geoData[i].properties.mag / 10
+          }).bindPopup("<h1>" + geoData[i].features.properties.place + "</h1> <hr> <h3> Place: " + geoData[i].features.properties.mag + "</h3>").addTo(myMap);
+
+    }
+
+  }
   
-  // Add circles to map
-  L.circleMarker(quakeLocation[i], {
-    fillOpacity: 0.75,
-    color: "white",
-    fillColor: color,
-    // We adjust the radius to the magnitude of the earthquake
-    radius: geoData[i].properties.mag / 10
-  }).bindPopup("<h1>" + geoData[i].features.properties.place + "</h1> <hr> <h3> Place: " + geoData[i].features.properties.mag + "</h3>").addTo(myMap);
 }
 
 })
