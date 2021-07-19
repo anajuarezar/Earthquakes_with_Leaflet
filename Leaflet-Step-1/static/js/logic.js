@@ -21,7 +21,7 @@ function circleColor(d){
     return "#ffcc00";
     else if (d > 50 && d <= 70)
     return "#ff9933";
-    else if (d <= 900)
+    else if (d <= 90)
     return "#ff6600"
     else  return "#ff0000";
 }
@@ -41,7 +41,7 @@ var earthquakes = L.geoJSON(earthquakeData, {
     pointToLayer: function (feature, quakeLocation){
         return new L.circle(quakeLocation, {
     fillOpacity: 0.75,
-    color: "white",
+    color: circleColor(feature.geometry.coordinates[2]),
     // We use the function we created for the color
     fillColor: circleColor(feature.geometry.coordinates[2]),
     // We use the magnitude to define the radius
@@ -77,10 +77,18 @@ var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z
   accessToken: API_KEY
 });
 
+var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "light-v10",
+  accessToken: API_KEY
+});
+
 // We create an object that will contain our layers,
 var baseMaps = {
   "Street Map": streetmap,
-  "Dark Map": darkmap
+  "Dark Map": darkmap,
+  "Light Map": light
 };
 
 // We create an object to hold our overlay layer
