@@ -54,9 +54,10 @@ onEachFeature: onEachFeature
 createMap(earthquakes);
 }
 
+// We define the function that will create the map.
 function createMap(earthquakes) {
 
-// Define streetmap and darkmap layers
+// We define the layers of the map we will use. 
 var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
   tileSize: 512,
@@ -73,18 +74,18 @@ var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z
   accessToken: API_KEY
 });
 
-// Define a baseMaps object to hold our base layers
+// We create an object that will contain our layers,
 var baseMaps = {
   "Street Map": streetmap,
   "Dark Map": darkmap
 };
 
-// Create overlay object to hold our overlay layer
+// We create an object to hold our overlay layer
 var overlayMaps = {
   Earthquakes: earthquakes
 };
 
-// Create our map, giving it the streetmap and earthquakes layers to display on load
+// We create the map with the layers we defined. 
 var myMap = L.map("mapid", {
   center: [
     37.09, -95.71
@@ -93,89 +94,9 @@ var myMap = L.map("mapid", {
   layers: [streetmap, earthquakes]
 });
 
-// Create a layer control
-// Pass in our baseMaps and overlayMaps
-// Add the layer control to the map
+// We need a control layer that will be the first to show, for this we will use leaflet.control.layers
 L.control.layers(baseMaps, overlayMaps, {
   collapsed: false
 }).addTo(myMap);
 }
-
-// //-----------------------------------------------------------------------------------------
-
-// // Creating map object
-// var myMap = L.map("mapid", {
-//     center: [39.981456, -106.257165],
-//     zoom: 5
-
-//   });
-
-// var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson";
-
-// d3.json(url).then(function(geoData) {
-  
-//   // Adding tile layer to the map
-//   L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-//     tileSize: 512,
-//     maxZoom: 18,
-//     zoomOffset: -1,
-//     id: "mapbox/streets-v11",
-//     accessToken: API_KEY
-//   }).addTo(myMap);
-  
-//   console.log(geoData);
-
-
-
-//   // Loop through the cities array and create one marker for each city object
-// for (var i = 0; i < geoData.length; i++) {
-
-//     // Conditionals for countries points
-//     var circleColor = "";
-//     if (geoData[i].features.geometry.coordinates.depth >= -10 && geoData[i].features.geometry.coordinates.depth <= 10 ) {
-//         circleColor = "#00ff99";
-//     }
-//     else if (geoData[i].features.geometry.coordinates.depth > 10 && geoData[i].geometry.coordinates.depth <= 30 ) {
-//         circleColor = "#ffff66";
-//     }
-//     else if (geoData[i].features.geometry.coordinates.depth > 30 && geoData[i].features.geometry.coordinates.depth <=  50 ) {
-//         circleColor = "#ffcc00";
-//     }
-//     else if (geoData[i].features.geometry.coordinates.depth > 50 && geoData[i].features.geometry.coordinates.depth <=  70) {
-//         circleColor = "#ff9933";
-//     }
-//     else if (geoData[i].features.geometry.coordinates.depth > 70 && geoData[i].geometry.coordinates.depth <=  90) {
-//         circleColor = "#ff6600";
-//     }
-//     else {
-//         circleColor = "#ff0000";
-//     }
-
-
-    
-//   // To begin with, we'll make an array containing the locations
-//   var quakeLocation = [];
-
-//   for (var i = 0; i < geoData.length; i++) {
-
-//     // Set the data location property to a variable
-//     quakeLocation = [geoData[i].coordinates.longitude, geoData[i].coordinates.latitude];
-
-//   }
-
-//   console.log(quakeLocation);
-  
-//   // Add circles to map
-//   L.circleMarker(quakeLocation[i], {
-//     fillOpacity: 0.75,
-//     color: "white",
-//     fillColor: circleColor,
-//     // We adjust the radius to the magnitude of the earthquake
-//     radius: geoData[i].properties.mag * 30000
-//   }).bindPopup("<h1>" + geoData[i].features.properties.place + "</h1> <hr> <h3> Place: " + geoData[i].features.properties.mag + "</h3>").addTo(myMap);
-// }
-
-// })
-
 
