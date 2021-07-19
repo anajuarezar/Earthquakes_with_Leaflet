@@ -13,7 +13,7 @@ The USGS is interested in building a new set of tools that will allow them visua
 
 ![Dark](https://github.com/anajuarezar/leaflet-challenge/blob/main/Images/Dark.png)
 
-![Light](https://github.com/anajuarezar/leaflet-challenge/blob/main/Images/Street.png)
+![Light](https://github.com/anajuarezar/leaflet-challenge/blob/main/Images/Light.png)
 
 ## Process
 
