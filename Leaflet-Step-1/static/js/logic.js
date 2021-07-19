@@ -11,16 +11,19 @@ features(data.features);
 
 // 4.  We need to specify the colors we will use. For this we will use the conditionals to select the color depending on the depth using a function
 
+
 function circleColor(d){
-    if (d > 90) 
-    return "#ff0000";
-    else if (d > 70)
-    return  "#ff6600";
-    else if (d > 50)
-    return "#ff9933";
-    else if (d > 30)
+    if (d >= -10 && d <=10) 
+    return "#00ff99";
+    else if (d > 10 && d <= 30)
+    return  "#ffff66";
+    else if (d > 30 && d <= 50)
     return "#ffcc00";
-    else  return "#ffff66";
+    else if (d > 50 && d <= 70)
+    return "#ff9933";
+    else if (d <= 900)
+    return "#ff6600"
+    else  return "#ff0000";
 }
 
 // We will create the function features that will use the var earthquakeData
@@ -42,7 +45,7 @@ var earthquakes = L.geoJSON(earthquakeData, {
     // We use the function we created for the color
     fillColor: circleColor(feature.geometry.coordinates[2]),
     // We use the magnitude to define the radius
-    radius: feature.properties.mag * 30000
+    radius: feature.properties.mag * 20000
   })
 },
 
