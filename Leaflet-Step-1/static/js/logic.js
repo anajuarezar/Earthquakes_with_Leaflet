@@ -1,11 +1,11 @@
 
-// 1. We  create a var called URL to save our API endpoint
+// 1. We  create a var called URL to save our API endpoint.
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson"
 
-// 2.  We use d3 to retrieve the information from the URL
+// 2.  We use d3 to retrieve the information from the URL.
 d3.json(url).then(function(data) {
 
-// 3. We call the function features with the data.features as parameters
+// 3. We call the function features with the data.features as parameters.
 features(data.features);
 });
 
@@ -26,30 +26,30 @@ function circleColor(d){
     else  return "#ff0000";
 }
 
-// 5. We will create the function features that will use the var earthquakeData
+// 5. We will create the function features that will use the var earthquakeData.
 
 function features(earthquakeData) {
 
-// 6. We will create the popup for each marker that will show the time, place, mag and depth of each earthquake
+// 6. We will create the popup for each marker that will show the time, place, mag and depth of each earthquake.
 function onEachFeature(feature, layer) {
   layer.bindPopup("<h3>" + feature.properties.place +
     "</h3><hr><p>" + new Date(feature.properties.time) + "</p> " + "<hr> Magnitude "+ feature.properties.mag + "<hr> Depth " + feature.geometry.coordinates[2]);
 }
 
-// 7. We create the layer and use the onEachFeature for it to go through the array
+// 7. We create the layer and use the onEachFeature for it to go through the array.
 var earthquakes = L.geoJSON(earthquakeData, {
     pointToLayer: function (feature, quakeLocation){
         return new L.circle(quakeLocation, {
     fillOpacity: 0.75,
     color: circleColor(feature.geometry.coordinates[2]),
-    // We use the function we created for the color
+    // We use the function we created for the color.
     fillColor: circleColor(feature.geometry.coordinates[2]),
-    // We use the magnitude to define the radius
+    // We use the magnitude to define the radius.
     radius: feature.properties.mag * 20000
   })
 },
 
-// 8.  We run the onEachFeature
+// 8.  We run the onEachFeature.
 
 onEachFeature: onEachFeature
 })
@@ -84,14 +84,14 @@ var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/
   accessToken: API_KEY
 });
 
-// 12. We create an object that will contain our layers,
+// 12. We create an object that will contain our layers.
 var baseMaps = {
   "Street Map": streetmap,
   "Dark Map": darkmap,
   "Light Map": light
 };
 
-// 14. We create an object to hold our overlay layer
+// 14. We create an object to hold our overlay layer.
 var overlayMaps = {
   Earthquakes: earthquakes
 };
@@ -105,7 +105,7 @@ var myMap = L.map("mapid", {
   layers: [streetmap, earthquakes]
 });
 
-// 16. We need a control layer that will be the first to show, for this we will use leaflet.control.layers
+// 16. We need a control layer that will be the first to show, for this we will use leaflet.control.layers.
 L.control.layers(baseMaps, overlayMaps, {
   collapsed: false
 }).addTo(myMap);
