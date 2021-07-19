@@ -26,17 +26,17 @@ function circleColor(d){
     else  return "#ff0000";
 }
 
-// We will create the function features that will use the var earthquakeData
+// 5. We will create the function features that will use the var earthquakeData
 
 function features(earthquakeData) {
 
-// We will create the popup for each marker that will show the time, place, mag and depth of each earthquake
+// 6. We will create the popup for each marker that will show the time, place, mag and depth of each earthquake
 function onEachFeature(feature, layer) {
   layer.bindPopup("<h3>" + feature.properties.place +
     "</h3><hr><p>" + new Date(feature.properties.time) + "</p> " + "<hr> Magnitude "+ feature.properties.mag + "<hr> Depth " + feature.geometry.coordinates[2]);
 }
 
-// We create the layer and use the onEachFeature for it to go through the array
+// 7. We create the layer and use the onEachFeature for it to go through the array
 var earthquakes = L.geoJSON(earthquakeData, {
     pointToLayer: function (feature, quakeLocation){
         return new L.circle(quakeLocation, {
@@ -49,18 +49,18 @@ var earthquakes = L.geoJSON(earthquakeData, {
   })
 },
 
-// We run the onEachFeature
+// 8.  We run the onEachFeature
 
 onEachFeature: onEachFeature
 })
-// We call the funtion that will create the map. 
+// 9. We call the funtion that will create the map. 
 createMap(earthquakes);
 }
 
-// We define the function that will create the map.
+// 10 We define the function that will create the map.
 function createMap(earthquakes) {
 
-// We define the layers of the map we will use. 
+// 11. We define the layers of the map we will use. 
 var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
   tileSize: 512,
@@ -84,19 +84,19 @@ var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/
   accessToken: API_KEY
 });
 
-// We create an object that will contain our layers,
+// 12. We create an object that will contain our layers,
 var baseMaps = {
   "Street Map": streetmap,
   "Dark Map": darkmap,
   "Light Map": light
 };
 
-// We create an object to hold our overlay layer
+// 14. We create an object to hold our overlay layer
 var overlayMaps = {
   Earthquakes: earthquakes
 };
 
-// We create the map with the layers we defined. 
+// 15. We create the map with the layers we defined. 
 var myMap = L.map("mapid", {
   center: [
     37.09, -95.71
@@ -105,7 +105,7 @@ var myMap = L.map("mapid", {
   layers: [streetmap, earthquakes]
 });
 
-// We need a control layer that will be the first to show, for this we will use leaflet.control.layers
+// 16. We need a control layer that will be the first to show, for this we will use leaflet.control.layers
 L.control.layers(baseMaps, overlayMaps, {
   collapsed: false
 }).addTo(myMap);
